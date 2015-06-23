@@ -37,7 +37,7 @@ app.set('port', process.env.PORT || config.port);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hjs');
 
-// app.use(favicon("public/images/favicon.ico"));
+app.use(favicon("public/images/circle.png"));
 app.use(helmet());
 
 
@@ -47,13 +47,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(favicon());
-
 app.use(morgan('combined'))
 
 app.use(methodOverride());
-
-app.use(app.router);
 
 app.use(require('less-middleware')(path.join(__dirname + '/public')));
 
