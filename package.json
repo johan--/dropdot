@@ -1,13 +1,27 @@
 {
   "name": "dropdot",
   "description": "Simple file uploading application",
-  "version": "0.0.3",
-  "author": "Alf <alf.g.jr@gmail.com>",
+  "version": "0.0.5",
+  "author": "Alf <alf.g.jr@gmail.com>, Johan <johan.pretorius@gmail.com>",
   "scripts": {
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.0.6",
+    "express": "latest",
+    "joi": "latest",
+    "morgan": "latest",
+    "method-override": "latest",
+    "errorhandler": "latest",
+    "body-parser": "latest",
+    "timeout": "latest",
+    "cookie-parser": "latest",
+    "cookie-session": "latest",
+    "csurf": "latest",
+    "session": "latest",
+    "serve-favicon": "latest",
+    "serve-index": "latest",
+    "serve-static": "latest",
+    "helmet": "latest",
     "hjs": "*",
     "less-middleware": "*",
     "node-uuid": "*",
@@ -16,5 +30,5 @@
     "moment": "*"
   },
   "keywords": ["uploader", "app"],
-  "repository": "git://github.com/alfg/dropdot"
+  "repository": "git://github.com/johan--/dropdot"
 }

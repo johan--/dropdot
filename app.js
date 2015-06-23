@@ -3,30 +3,61 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path')
-  , config = require('./config');
+var express         = require('express'),
+    http            = require('http'),
+    fs              = require('fs'),
+    helmet          = require('helmet'),
+    favicon         = require('serve-favicon'),
+    bodyParser      = require('body-parser'),
+    methodOverride  = require('method-override'),
+    cookieParser    = require('cookie-parser'),
+    cookieSession   = require('cookie-session'),
+    morgan          = require('morgan'),
+    csrf            = require('csurf'),
+    errorHandler    = require('errorhandler'),
+    serveStatic     = require('serve-static'),
+    path            = require('path'),
+    config          = require('./config'),
+    routes          = require('./routes'),
+    app             = express();
 
-var app = express();
+// Configuration ===========================================================================================================
 
-app.configure(function(){
-  app.set('port', process.env.PORT || config.port);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'hjs');
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(require('less-middleware')(path.join(__dirname + '/public')));
-  app.use(express.static(path.join(__dirname, 'public')));
-});
+var env = process.env.NODE_ENV || 'development';
 
-app.configure('development', function(){
-  app.use(express.errorHandler());
-});
+// Development specific settings ===========================================================================================
+if (env === 'development') {
+  app.use(errorHandler());
+}
+else {
+
+}
+
+app.set('port', process.env.PORT || config.port);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'hjs');
+
+// app.use(favicon("public/images/favicon.ico"));
+app.use(helmet());
+
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+app.use(favicon());
+
+app.use(morgan('combined'))
+
+app.use(methodOverride());
+
+app.use(app.router);
+
+app.use(require('less-middleware')(path.join(__dirname + '/public')));
+
+app.use(serveStatic(__dirname + '/public'));      // set the static files location
 
 app.get('/', routes.index);
 app.get('/signed', routes.signed);
