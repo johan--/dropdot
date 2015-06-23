@@ -35,6 +35,10 @@ $ mv config.js.sample config.js
 $ node app.js
 ```
 
+```bash
+$ DEBUG=express:* node app.js
+```
+
 Load `http://localhost:3000` into the browser
 
 The app is set, now you need to create and configure your S3 Bucket.
